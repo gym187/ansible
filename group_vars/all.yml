@@ -1,0 +1,6 @@
+---
+# group_vars/all.yml
+# Variáveis aplicadas a todos os hosts
+
+ansible_ssh_private_key_file: /root/.ssh/AcessoDesenvolvedor.pem
+ansible_python_interpreter: /usr/bin/python3
