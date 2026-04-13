@@ -117,6 +117,54 @@ ansible all -m shell -a "free -m"
 ansible webservers -m service -a "name=nginx state=restarted" --become
 ```
 
+### Rodar comandos shell Linux
+
+Use `-m shell` para executar qualquer comando diretamente nos servidores:
+
+```bash
+# Em todos os hosts
+ansible all -m shell -a "COMANDO"
+
+# Em um grupo específico
+ansible webservers -m shell -a "COMANDO"
+
+# Em um host específico
+ansible web01 -m shell -a "COMANDO"
+
+# Com sudo (--become)
+ansible all -m shell -a "COMANDO" --become
+```
+
+**Exemplos práticos:**
+
+```bash
+# Ver usuários logados
+ansible all -m shell -a "who"
+
+# Listar processos
+ansible all -m shell -a "ps aux"
+
+# Ver logs do sistema
+ansible all -m shell -a "tail -n 50 /var/log/syslog" --become
+
+# Verificar status de um serviço
+ansible webservers -m shell -a "systemctl status nginx"
+
+# Instalar pacote
+ansible all -m shell -a "apt-get install -y htop" --become
+
+# Criar diretório
+ansible all -m shell -a "mkdir -p /opt/minha-app"
+
+# Checar espaço em disco em um path específico
+ansible all -m shell -a "du -sh /var/log"
+
+# Executar múltiplos comandos encadeados
+ansible all -m shell -a "cd /tmp && ls -lh"
+```
+
+> **Dica:** Para comandos que precisam de `sudo`, sempre use `--become` no final.
+
 ## Trocar a chave SSH
 
 Se a nova chave tiver o **mesmo nome**:
